@@ -92,7 +92,7 @@ const Create = () => {
             {!edit && (
               <>
                 <div
-                  className="blog my-2"
+                  className="blog my-4"
                   dangerouslySetInnerHTML={{ __html: rendered_blog }}
                 ></div>
               </>
