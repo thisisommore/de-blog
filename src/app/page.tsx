@@ -20,7 +20,7 @@ const Home = async () => {
                 <Line />
                 <div className="py-6 ml-2">
                   <h3 className="text-2xl">{e.title}</h3>
-                  <p>{e.content}</p>
+                  <p>{e.content.replaceAll("`", "")}</p>
                 </div>
               </div>
             </Link>
