@@ -1,11 +1,26 @@
 import { web3_public_client } from "@/config/web3_client";
 import { get_read_blog_contract } from "@/contracts/contracts";
 import React from "react";
+import { ContractFunctionExecutionError } from "viem";
 
+const ErrNoPost = "Post does not exist";
 const Line = () => <div className="h-0.5 w-1/2 bg-gray-300"></div>;
 const Post = async ({ params: { id: postId } }: { params: { id: string } }) => {
   const BlogContract = get_read_blog_contract(web3_public_client);
-  const post = await BlogContract.read.viewPost([BigInt(postId)]);
+
+  let post: Awaited<ReturnType<typeof BlogContract.read.viewPost>>;
+  try {
+    post = await BlogContract.read.viewPost([BigInt(postId)]);
+  } catch (error: unknown) {
+    if (error instanceof ContractFunctionExecutionError) {
+      if (error.shortMessage.includes(ErrNoPost)) {
+        return <p>Post not found</p>;
+      }
+    }
+
+    throw error;
+  }
+
   const [_postId, postAuthor, postTitle, postContent, isDeleted] = post;
   // (post.id, post.author, post.title, post.content, post.isDeleted)
   return (
