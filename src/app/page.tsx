@@ -2,12 +2,12 @@ export const dynamic = "force-dynamic";
 import { web3_public_client } from "@/config/web3_client";
 import { get_read_blog_contract } from "@/contracts/contracts";
 import React from "react";
-import PostsPage from "./PostsPage";
+import Posts from "./components/Posts";
 
 const Home = async () => {
   const BlogContract = get_read_blog_contract(web3_public_client);
   let posts = await BlogContract.read.viewAllPosts();
-  return <PostsPage posts={posts} />;
+  return <Posts posts={posts} />;
 };
 
 export default Home;

@@ -44,6 +44,7 @@ const Create = () => {
   return (
     <div className="w-100 flex">
       <div className="py-4 w-11/12 md:w-5/6 mx-auto">
+        {/* Head: Title and short pitch */}
         <div className="p-4">
           <h3 className="text-lg font-medium">New post</h3>
           <p className="text-sm text-muted-foreground">
@@ -52,20 +53,22 @@ const Create = () => {
         </div>
         <Separator />
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-4">
+          {/* Post Title */}
           <div>
             <Label>Title</Label>
-            <div className="my-1"></div>
             <Input
+              className="mt-2"
               placeholder="How I secured my first job"
               {...form.register("title", { required: true })}
             />
-            <div className="my-1"></div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground mt-2">
               This title will be shown at start of blog and in home page, make
               sure it gets attention of any reader
             </p>
           </div>
+          {/* Post Content */}
           <div>
+            {/* Label and actions: edit mode and actions */}
             <div className="flex items-center">
               <div>
                 <Label>Content</Label>
@@ -89,21 +92,21 @@ const Create = () => {
 
             <div className="my-2"></div>
             <Separator />
+
+            {/* Render Blog */}
             {!edit && (
-              <>
-                <div
-                  className="blog my-4"
-                  dangerouslySetInnerHTML={{ __html: rendered_blog }}
-                ></div>
-              </>
+              <div
+                className="blog my-4"
+                dangerouslySetInnerHTML={{ __html: rendered_blog }}
+              />
             )}
 
+            {/* Edit Blog markdown */}
             <div
-              className={`min-h-[30vh] outline-none rounded-md before:text-gray-400 before:text-2xl mt-2 ${
+              className={`min-h-[30vh] outline-none rounded-md before:text-gray-400 before:text-2xl my-2 ${
                 !edit ? "hidden" : ""
               }`}
               data-text="Start by typing here"
-              {...form.register("content")}
               suppressContentEditableWarning={true}
               onInput={(e: any) => {
                 form.setValue("content", e.target.innerText);
@@ -111,8 +114,6 @@ const Create = () => {
               contentEditable={true}
               inputMode="text"
             ></div>
-
-            <div className="my-1"></div>
           </div>
         </form>
       </div>

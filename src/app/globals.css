@@ -74,6 +74,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* placeholder */
 [contentEditable="true"]:empty:not(:focus):before {
   content: attr(data-text);
 }

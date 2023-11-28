@@ -4,6 +4,7 @@ import React from "react";
 import { useWalletClient } from "wagmi";
 import { Trash } from "lucide-react";
 import { useBlogContract } from "@/contracts/hooks";
+const Line = () => <div className="h-0.5 w-full bg-gray-100"></div>;
 
 type Props = {
   posts: readonly {
@@ -14,23 +15,22 @@ type Props = {
     isDeleted: boolean;
   }[];
 };
-const Line = () => <div className="h-0.5 w-full bg-gray-100"></div>;
-const PostsPage = ({ posts }: Props) => {
+const Posts = ({ posts }: Props) => {
   const { data: wallet } = useWalletClient();
   const blogContract = useBlogContract();
 
   return (
+    /* Container */
     <div className="w-full flex justify-center">
       <div className="p-4 md:w-4/5">
-        <h2 className="text-4xl mt-4">Latest posts</h2>
-
-        <div className="my-4"></div>
+        <h2 className="text-4xl my-4">Latest posts</h2>
         {posts &&
           posts.map((e) => {
             return (
-              <div>
+              <>
                 <Line />
                 <div className="py-6 ml-2">
+                  {/* Head: title, author and delete button */}
                   <div className="flex items-center">
                     <Link
                       href={e.id.toString()}
@@ -52,13 +52,15 @@ const PostsPage = ({ posts }: Props) => {
                       />
                     )}
                   </div>
+
+                  {/* Content */}
                   <Link href={e.id.toString()} key={e.id}>
                     <p className="text-gray-600 text-sm">
                       {e.content.replaceAll("`", "")}
                     </p>
                   </Link>
                 </div>
-              </div>
+              </>
             );
           })}
         <Line />
@@ -67,4 +69,4 @@ const PostsPage = ({ posts }: Props) => {
   );
 };
 
-export default PostsPage;
+export default Posts;

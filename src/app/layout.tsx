@@ -22,10 +22,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider chains={Chains}>
-            <>
               <Header />
               {children}
-            </>
           </RainbowKitProvider>
         </WagmiConfig>
       </body>
