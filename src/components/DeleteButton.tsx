@@ -1,27 +1,39 @@
 "use client";
+import Spinner from "@/app/components/Spinner";
 import { useBlogContract } from "@/contracts/hooks";
 import { Trash } from "lucide-react";
 import React from "react";
-import { useWalletClient } from "wagmi";
+import { useNetwork } from "wagmi";
 
 type Props = {
   postAuthor: string;
   postId: bigint;
+  onDelete: () => void;
 };
 const DeleteButton = (p: Props) => {
-  const { data: wallet } = useWalletClient();
-  const blogContract = useBlogContract();
+  const { chain } = useNetwork();
+  const { loading, wallet, deletePost } = useBlogContract();
   return (
     <>
-      {p.postAuthor.toLowerCase() == wallet?.account.address.toLowerCase() && (
-        <Trash
-          size={14}
-          className="ml-auto hover:cursor-pointer"
-          onClick={() => {
-            blogContract!.write.deletePost([p.postId]);
-          }}
-        />
-      )}
+      {chain &&
+        p.postAuthor.toLowerCase() == wallet?.account.address.toLowerCase() && (
+          <>
+            {loading ? (
+              <div className="ml-auto">
+                <Spinner />
+              </div>
+            ) : (
+              <Trash
+                size={14}
+                className="ml-auto hover:cursor-pointer"
+                onClick={async () => {
+                  await deletePost!(p.postId);
+                  p.onDelete();
+                }}
+              />
+            )}
+          </>
+        )}
     </>
   );
 };

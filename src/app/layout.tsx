@@ -5,7 +5,7 @@ import { Chains, wagmiConfig } from "@/config/wallet";
 import { WagmiConfig } from "wagmi";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import Header from "@/components/Header";
-
+import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,6 +24,7 @@ export default function RootLayout({
           <RainbowKitProvider chains={Chains}>
             <Header />
             {children}
+            <Toaster />
           </RainbowKitProvider>
         </WagmiConfig>
       </body>

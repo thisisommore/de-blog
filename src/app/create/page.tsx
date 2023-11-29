@@ -10,6 +10,9 @@ import { Toggle } from "@/components/ui/toggle";
 import { remark } from "remark";
 import html from "remark-html";
 import { Button } from "@/components/ui/button";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import Spinner from "../components/Spinner";
+import { useRouter } from "next/navigation";
 type PostForm = {
   title: string;
   content: string;
@@ -18,10 +21,12 @@ type PostForm = {
 
 const Create = () => {
   const contentDefaultValue = "";
-  const blogContract = useBlogContract();
+  const { createPost, loading, wallet } = useBlogContract();
+  const { openConnectModal } = useConnectModal();
   const form = useForm<PostForm>({
     defaultValues: { edit: true, content: contentDefaultValue },
   });
+  const router = useRouter();
   const edit = form.watch("edit");
   const content = form.watch("content");
   const [rendered_blog, set_rendered_blog] = useState("");
@@ -34,12 +39,10 @@ const Create = () => {
     })();
   }, [content]);
 
-  useEffect(() => {
-    console.log(edit);
-  }, [edit]);
-  if (!blogContract) return <p>Connect wallet</p>;
-  const onSubmit: SubmitHandler<PostForm> = (data) => {
-    blogContract.write.createPost([data.title, data.content]);
+  const onSubmit: SubmitHandler<PostForm> = async ({ title, content }) => {
+    // The form submit button is only displayed if wallet is defined
+    const postId = await createPost!(title, content);
+    if (postId) router.push("/" + postId.toString());
   };
   return (
     <div className="w-100 flex">
@@ -87,7 +90,13 @@ const Create = () => {
               >
                 <Edit2 className="h-4 w-4" />
               </Toggle>
-              <Button type="submit">Publish</Button>
+              {wallet ? (
+                <Button type="submit">Publish {loading && <Spinner />}</Button>
+              ) : (
+                <Button type="button" onClick={openConnectModal}>
+                  Connect to publish
+                </Button>
+              )}
             </div>
 
             <div className="my-2"></div>

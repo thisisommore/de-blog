@@ -1,4 +1,6 @@
+"use client";
 import DeleteButton from "@/components/DeleteButton";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type Props = {
@@ -10,6 +12,7 @@ type Props = {
 
 const Line = () => <div className="h-0.5 w-full bg-gray-300"></div>;
 const Post = (p: Props) => {
+  const router = useRouter();
   return (
     <div className="p-4 flex justify-center w-full">
       <div className="my-4"></div>
@@ -19,7 +22,13 @@ const Post = (p: Props) => {
             <h3 className="text-3xl mb-2">{p.title}</h3>
             <p className="ml-2 text-gray-600">•</p>
             <p className="ml-2 text-gray-600"> {p.author}</p>
-            <DeleteButton postAuthor={p.author} postId={p.id} />
+            <DeleteButton
+              onDelete={() => {
+                router.push("/");
+              }}
+              postAuthor={p.author}
+              postId={p.id}
+            />
           </div>
 
           <Line />
