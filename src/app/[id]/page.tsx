@@ -42,7 +42,7 @@ export async function generateMetadata(
 
   return {
     title: postTitle,
-    description: postContent.slice(0, 10) + "...",
+    description: postContent.split("\n")[0],
   };
 }
 
