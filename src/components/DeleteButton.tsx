@@ -27,8 +27,7 @@ const DeleteButton = (p: Props) => {
                 size={14}
                 className="ml-auto hover:cursor-pointer"
                 onClick={async () => {
-                  await deletePost!(p.postId);
-                  p.onDelete();
+                  if (await deletePost!(p.postId)) p.onDelete();
                 }}
               />
             )}

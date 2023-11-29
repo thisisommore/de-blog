@@ -3,7 +3,7 @@
 import ErrorUI from "@/components/ui/ErrorUI";
 import { useEffect } from "react";
 
-export default function Error({
+export default function GlobalError({
   error,
   reset,
 }: {
@@ -14,12 +14,15 @@ export default function Error({
     // Log the error to an error reporting service
     console.error(error);
   }, [error]);
-
   return (
-    <ErrorUI
-      btnLabel="Try again"
-      btnAction={reset}
-      text="Something went wrong"
-    />
+    <html>
+      <body>
+        <ErrorUI
+          btnLabel="Try again"
+          btnAction={reset}
+          text="Something went wrong"
+        />
+      </body>
+    </html>
   );
 }

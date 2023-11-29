@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import DeleteButton from "@/components/DeleteButton";
+import { Button } from "@/components/ui/button";
 const Line = () => <div className="h-0.5 w-full bg-gray-100"></div>;
 
 type Props = {
@@ -20,7 +21,13 @@ const Posts = ({ posts }: Props) => {
     /* Container */
     <div className="w-full flex justify-center">
       <div className="p-4 md:w-4/5">
-        <h2 className="md:text-4xl text-2xl my-4">Latest posts</h2>
+        <div className="flex items-center">
+          <h2 className="md:text-4xl text-2xl my-4">Latest posts</h2>
+          <Link className="ml-auto" href="/create">
+            <Button size={"sm"}>New Post</Button>
+          </Link>
+        </div>
+
         {posts &&
           posts
             .filter((e) => !deletedPosts.has(e.id))

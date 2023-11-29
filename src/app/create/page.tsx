@@ -61,7 +61,7 @@ const Create = () => {
             <Label>Title</Label>
             <Input
               className="mt-2"
-              placeholder="How I secured my first job"
+              placeholder="My thoughts on Generative Pre-trained Transformers"
               {...form.register("title", { required: true })}
             />
             <p className="text-sm text-muted-foreground mt-2">
@@ -91,16 +91,9 @@ const Create = () => {
                 <Edit2 className="h-4 w-4" />
               </Toggle>
               {wallet ? (
-                <Button className="md:text-base text-sm p-1" type="submit">
-                  Publish {loading && <Spinner />}
-                </Button>
+                <Button type="submit">Publish {loading && <Spinner />}</Button>
               ) : (
-                <Button
-                  className="md:text-base text-sm p-1"
-                  size={"sm"}
-                  type="button"
-                  onClick={openConnectModal}
-                >
+                <Button size={"sm"} type="button" onClick={openConnectModal}>
                   Connect to publish
                 </Button>
               )}

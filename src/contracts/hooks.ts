@@ -29,6 +29,7 @@ export const useBlogContract = () => {
         setLoading(true)
         try {
             const txhash = await blogContract.write.deletePost([postId])
+
             const transaction = await publicClient.waitForTransactionReceipt(
                 { hash: txhash }
             )
@@ -37,18 +38,21 @@ export const useBlogContract = () => {
                 return
             }
             toast.success("post deleted")
+            setLoading(false)
+            return true
         } catch (error) {
             handleError(error)
-        } finally {
+            //Since error is handled just return status so that caller can stop all further success actions
             setLoading(false)
+            return false
         }
     }
 
     const createPost = async (title: string, content: string) => {
+        let postId: bigint | undefined;
         setLoading(true)
         try {
             const txhash = await blogContract.write.createPost([title, content])
-            let postId: bigint | undefined;
             const transaction = await publicClient.waitForTransactionReceipt(
                 { hash: txhash }
             )
@@ -58,14 +62,14 @@ export const useBlogContract = () => {
                 toast.error("failed to create post: reverted")
                 return
             }
-
             toast.success("post created")
-            return postId;
         } catch (error) {
             handleError(error)
         } finally {
             setLoading(false)
+            return postId;
         }
+
     }
     return { deletePost, createPost, loading, wallet };
 }

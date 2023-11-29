@@ -16,13 +16,12 @@ const Post = (p: Props) => {
   return (
     <div className="p-4 flex justify-center w-full">
       <div className="my-4"></div>
-      <div key={p.id} className="md:w-4/5 w-[98%]">
+      <div key={p.id} className="md:w-11/12 w-[98%]">
         <div className="py-6 ml-2">
           <div className="flex flex-wrap items-center">
-            <h3 className="md:text-3xl text-xl mb-2">{p.title}</h3>
-            <p className="ml-2 text-gray-600 md:block hidden">•</p>
-            <p className="md:ml-2 text-gray-600 md:w-auto md:text-base text-sm w-4/5 overflow-hidden text-ellipsis">
-              {p.author}
+            <h3 className="md:text-3xl text-xl mb-2 w-full">{p.title}</h3>
+            <p className="text-gray-500 text-sm overflow-hidden text-ellipsis mb-1">
+              Published by {p.author}
             </p>
             <DeleteButton
               onDelete={() => {

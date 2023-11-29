@@ -1,14 +1,16 @@
+export const dynamic = "force-dynamic";
 import { web3_public_client } from "@/config/web3_client";
 import { get_read_blog_contract } from "@/contracts/contracts";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { remark } from "remark";
 import { ContractFunctionExecutionError } from "viem";
 import html from "remark-html";
 import Post from "./components/Post";
 import { ResolvingMetadata, Metadata } from "next";
+import ErrorUI from "@/components/ui/ErrorUI";
 
 const ErrNoPost = "Post does not exist";
-
+const ErrDeletedPost = "Post is deleted";
 type Props = { params: { id: string } };
 export async function generateMetadata(
   { params: { id: postId } }: Props,
@@ -24,6 +26,11 @@ export async function generateMetadata(
       if (error.shortMessage.includes(ErrNoPost)) {
         return {
           title: "Post not found",
+        };
+      }
+      if (error.shortMessage.includes(ErrDeletedPost)) {
+        return {
+          title: "Post no longer available",
         };
       }
     }
@@ -44,15 +51,26 @@ const PostPage = async ({ params: { id: postId } }: Props) => {
 
   let post: Awaited<ReturnType<typeof BlogContract.read.viewPost>>;
   try {
-    console.log("postId", postId);
     post = await BlogContract.read.viewPost([BigInt(postId)]);
   } catch (error: unknown) {
     if (error instanceof ContractFunctionExecutionError) {
-      console.log("postId", error);
-      console.log(error.shortMessage);
-
       if (error.shortMessage.includes(ErrNoPost)) {
-        return <p> Post not found</p>;
+        return (
+          <ErrorUI
+            btnLabel="Go to home page"
+            text="Post not found"
+            btnAction="/"
+          />
+        );
+      }
+      if (error.shortMessage.includes(ErrDeletedPost)) {
+        return (
+          <ErrorUI
+            btnLabel="Go to home page"
+            text="Post no longer available"
+            btnAction="/"
+          />
+        );
       }
     }
 
