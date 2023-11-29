@@ -97,7 +97,7 @@
 }
 
 .blog pre {
-  overflow: scroll;
+  overflow-x: auto;
 }
 .blog li * {
   margin-left: 10px;
