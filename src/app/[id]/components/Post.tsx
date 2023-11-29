@@ -32,7 +32,7 @@ const Post = (p: Props) => {
 
         <Line />
         <div
-          className="blog my-4 md:text-md text-sm"
+          className="blog my-4 md:text-md text-xs w-full overflow-hidden"
           dangerouslySetInnerHTML={{ __html: p.content }}
         />
       </div>

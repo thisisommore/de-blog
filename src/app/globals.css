@@ -81,12 +81,12 @@
 }
 
 .blog h1 {
-  font-size: 1.4em;
+  font-size: 2em;
   line-height: initial;
 }
 
 .blog h2 {
-  font-size: 1.2em;
+  font-size: 1.6em;
   line-height: initial;
 }
 
@@ -96,6 +96,9 @@
   list-style-position: inside;
 }
 
+.blog pre {
+  overflow: scroll;
+}
 .blog li * {
   margin-left: 10px;
 }
