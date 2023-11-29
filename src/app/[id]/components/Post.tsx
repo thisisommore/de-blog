@@ -16,12 +16,14 @@ const Post = (p: Props) => {
   return (
     <div className="p-4 flex justify-center w-full">
       <div className="my-4"></div>
-      <div key={p.id} className="w-4/5">
+      <div key={p.id} className="md:w-4/5 w-[98%]">
         <div className="py-6 ml-2">
-          <div className="flex items-center">
-            <h3 className="text-3xl mb-2">{p.title}</h3>
-            <p className="ml-2 text-gray-600">•</p>
-            <p className="ml-2 text-gray-600"> {p.author}</p>
+          <div className="flex flex-wrap items-center">
+            <h3 className="md:text-3xl text-xl mb-2">{p.title}</h3>
+            <p className="ml-2 text-gray-600 md:block hidden">•</p>
+            <p className="md:ml-2 text-gray-600 md:w-auto md:text-base text-sm w-4/5 overflow-hidden text-ellipsis">
+              {p.author}
+            </p>
             <DeleteButton
               onDelete={() => {
                 router.push("/");
@@ -33,7 +35,7 @@ const Post = (p: Props) => {
 
           <Line />
           <div
-            className="blog my-4"
+            className="blog my-4 md:text-md text-sm"
             dangerouslySetInnerHTML={{ __html: p.content }}
           />
         </div>

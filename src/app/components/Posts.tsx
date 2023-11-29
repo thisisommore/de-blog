@@ -20,7 +20,7 @@ const Posts = ({ posts }: Props) => {
     /* Container */
     <div className="w-full flex justify-center">
       <div className="p-4 md:w-4/5">
-        <h2 className="text-4xl my-4">Latest posts</h2>
+        <h2 className="md:text-4xl text-2xl my-4">Latest posts</h2>
         {posts &&
           posts
             .filter((e) => !deletedPosts.has(e.id))
@@ -28,7 +28,7 @@ const Posts = ({ posts }: Props) => {
               return (
                 <div key={e.id}>
                   <Line />
-                  <div className="py-6 ml-2">
+                  <div className="md:py-6 py-3 ml-2">
                     {/* Head: title, author and delete button */}
                     <div className="flex items-center">
                       <Link
@@ -36,9 +36,10 @@ const Posts = ({ posts }: Props) => {
                         key={e.id}
                         className="flex items-center"
                       >
-                        <h3 className="text-2xl font-semibold">{e.title}</h3>
-                        <p className="ml-2 text-gray-400 text-sm">
-                          {" "}
+                        <h3 className="text-md md:text-2xl font-semibold">
+                          {e.title}
+                        </h3>
+                        <p className="ml-2 text-gray-400 md:text-sm text-xs w-28 md:w-auto text-ellipsis overflow-hidden">
                           {e.author}
                         </p>
                       </Link>

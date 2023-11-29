@@ -44,11 +44,15 @@ const PostPage = async ({ params: { id: postId } }: Props) => {
 
   let post: Awaited<ReturnType<typeof BlogContract.read.viewPost>>;
   try {
+    console.log("postId", postId);
     post = await BlogContract.read.viewPost([BigInt(postId)]);
   } catch (error: unknown) {
     if (error instanceof ContractFunctionExecutionError) {
+      console.log("postId", error);
+      console.log(error.shortMessage);
+
       if (error.shortMessage.includes(ErrNoPost)) {
-        return <p>Post not found</p>;
+        return <p> Post not found</p>;
       }
     }
 

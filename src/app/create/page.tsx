@@ -45,7 +45,7 @@ const Create = () => {
     if (postId) router.push("/" + postId.toString());
   };
   return (
-    <div className="w-100 flex">
+    <div className="w-full flex">
       <div className="py-4 w-11/12 md:w-5/6 mx-auto">
         {/* Head: Title and short pitch */}
         <div className="p-4">
@@ -70,12 +70,12 @@ const Create = () => {
             </p>
           </div>
           {/* Post Content */}
-          <div>
+          <div className="w-full">
             {/* Label and actions: edit mode and actions */}
-            <div className="flex items-center">
-              <div>
+            <div className="flex items-center flex-wrap">
+              <div className="md:w-auto w-full">
                 <Label>Content</Label>
-                <p className="text-sm text-muted-foreground">
+                <p className="md:text-sm text-xs text-muted-foreground">
                   All the best with your writing, click publish when done
                 </p>
               </div>
@@ -91,9 +91,16 @@ const Create = () => {
                 <Edit2 className="h-4 w-4" />
               </Toggle>
               {wallet ? (
-                <Button type="submit">Publish {loading && <Spinner />}</Button>
+                <Button className="md:text-base text-sm p-1" type="submit">
+                  Publish {loading && <Spinner />}
+                </Button>
               ) : (
-                <Button type="button" onClick={openConnectModal}>
+                <Button
+                  className="md:text-base text-sm p-1"
+                  size={"sm"}
+                  type="button"
+                  onClick={openConnectModal}
+                >
                   Connect to publish
                 </Button>
               )}

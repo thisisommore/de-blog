@@ -3,7 +3,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 const Header = () => {
   return (
-    <header className="flex w-100 p-2 border-b rounder-sm items-center">
+    <header className="flex w-full p-2 border-b rounder-sm items-center">
       <Link href="/">
         <h2 className="text-2xl font-semibold">DeBlog</h2>
       </Link>
