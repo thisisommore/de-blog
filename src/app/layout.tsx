@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "DeBlog",
-  description: "Publich your thoughts permanently",
+  description: "Publish your thoughts permanently",
 };
 export default function RootLayout({
   children,
@@ -22,8 +22,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider chains={Chains}>
-              <Header />
-              {children}
+            <Header />
+            {children}
           </RainbowKitProvider>
         </WagmiConfig>
       </body>

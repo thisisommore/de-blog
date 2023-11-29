@@ -1,9 +1,6 @@
-"use client";
 import Link from "next/link";
 import React from "react";
-import { useWalletClient } from "wagmi";
-import { Trash } from "lucide-react";
-import { useBlogContract } from "@/contracts/hooks";
+import DeleteButton from "@/components/DeleteButton";
 const Line = () => <div className="h-0.5 w-full bg-gray-100"></div>;
 
 type Props = {
@@ -15,10 +12,8 @@ type Props = {
     isDeleted: boolean;
   }[];
 };
-const Posts = ({ posts }: Props) => {
-  const { data: wallet } = useWalletClient();
-  const blogContract = useBlogContract();
 
+const Posts = ({ posts }: Props) => {
   return (
     /* Container */
     <div className="w-full flex justify-center">
@@ -41,16 +36,7 @@ const Posts = ({ posts }: Props) => {
                       <p className="ml-2 text-gray-400 text-sm"> {e.author}</p>
                     </Link>
 
-                    {e.author.toLowerCase() ==
-                      wallet?.account.address.toLowerCase() && (
-                      <Trash
-                        size={14}
-                        className="ml-auto hover:cursor-pointer"
-                        onClick={() => {
-                          blogContract!.write.deletePost([e.id]);
-                        }}
-                      />
-                    )}
+                    <DeleteButton postAuthor={e.author} postId={e.id} />
                   </div>
 
                   {/* Content */}
