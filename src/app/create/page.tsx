@@ -43,6 +43,7 @@ const Create = () => {
     // The form submit button is only displayed if wallet is defined
     const postId = await createPost!(title, content);
     if (postId) router.push("/" + postId.toString());
+    else router.push("/");
   };
   return (
     <div className="w-full flex">
