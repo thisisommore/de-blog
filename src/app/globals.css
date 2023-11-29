@@ -98,6 +98,7 @@
 
 .blog pre {
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .blog li * {
   margin-left: 10px;
