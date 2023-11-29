@@ -62,7 +62,7 @@ const Posts = ({ posts }: Props) => {
 
                     {/* Content */}
                     <Link href={e.id.toString()} key={e.id}>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-sm line-clamp-2">
                         {e.content.replaceAll("`", "")}
                       </p>
                     </Link>
